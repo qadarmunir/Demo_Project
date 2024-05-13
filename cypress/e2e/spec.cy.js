@@ -1,35 +1,35 @@
-// Assuming you've already installed Cypress and set up your project
-
-describe("Password reset", () => {
-  const serverId = "khpz4jy2"; // Replace with your Mailosaur server ID
-  const serverDomain = "darkness-element@khpz4jy2.mailosaur.net";
-  const emailAddress = "darkness-element@" + serverDomain;
-
-  it("should receive a password reset email", () => {
-    // Trigger the password reset action (e.g., click the "Forgot Password" link)
-    // ...
-
-    // Wait for the email to arrive (you can adjust the timeout as needed)
-    cy.mailosaurGetMessage(serverId, {
-      sentTo: emailAddress,
-      subject: "hy", // Adjust this to match your email subject
-      timeout: 30000, // 30 seconds
-    }).then((email) => {
-      // Assert email content or perform other checks
-      expect(email.subject).to.equal("hy");
-      //expect(email.text.body).to.contain("Click the link below to reset your password");
-
-      // Optionally, you can extract the reset link and visit it
-      const resetLink = email.html.links.find((link) => link.text === "hy");
-      if (resetLink) {
-        cy.visit(resetLink.href);
-        // Now you're on the password reset page
-        // Fill in the new password and submit the form
-        // ...
-      } else {
-        throw new Error("Reset link not found in email");
-      }
-    });
+describe('mailosaur', () => {
+  const SERVER_ID = 'khpz4jy2';
+  const serverDomain = "khpz4jy2.mailosaur.net";
+  const emailAddress = 'generally-call@' + serverDomain;
+  it('verify subject', () => {
+      cy.mailosaurGetMessage(SERVER_ID, {
+          sentTo: emailAddress//"generally-call@khpz4jy2.mailosaur.net"
+      }, {
+          timeout: 60000, // Increased timeout to 60 seconds
+      })
+      .then((email) => {
+          if (email) {
+              cy.log(email.subject);
+              // console.log(message.text.body) // "Hi Jason, ..."
+              // cy.log(email.text); // Log the email body text
+          }
+      });
+      cy.mailosaurGenerateEmailAddress("SERVER_ID").then((emailAddress) => {
+        cy.log(emailAddress); // "bgwqj@SERVER_ID.mailosaur.net"
+      });
   });
+  it('EmailTextbody', () => {
+    cy.mailosaurGetMessage(SERVER_ID, {
+        sentTo: emailAddress//"generally-call@khpz4jy2.mailosaur.net"
+    }, {
+        timeout: 60000, // Increased timeout to 60 seconds
+    })
+    .then((email) => {
+      // Check that the email contains some text
+      expect(email.text.body).to.contain("what are u doing?");
+    });
 });
+});
+
 
