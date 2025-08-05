@@ -1,3 +1,8 @@
+```
+
+YAML files must not contain [](http://_vscodecontentref_/0) comments or file path annotations. Remove that line so your file starts with:
+
+```yaml
 name: Cypress: Single File Test
 
 on:
