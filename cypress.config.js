@@ -28,7 +28,7 @@ module.exports = {
   // Command timeout overridden for E2E tests
   e2e: {
     defaultCommandTimeout: 25000,
-    //"baseUrl": "https://linentech.net",
+    "baseUrl": "https://www.perfectform.com/",
      slowTestThreshold : 10000,
      pageLoadTimeout: 50000,
      requestTimeout: 5000,
