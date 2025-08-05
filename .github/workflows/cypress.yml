@@ -1,25 +1,28 @@
-name: Cypress: Single File Test
+name: Run Cypress Tests
 
 on:
-  workflow_dispatch:
+  push:
+    branches:
+      - main
+      - master
+  schedule:
+    - cron: '0 12 * * *'  # Runs every day at 12:00 PM UTC
 
 jobs:
-  run-single:
+  cypress-run:
     runs-on: ubuntu-latest
 
     steps:
-      - uses: actions/checkout@v4
+      - name: Checkout code
+        uses: actions/checkout@v4
 
-      - name: Setup Node
+      - name: Setup Node.js
         uses: actions/setup-node@v4
         with:
-          node-version: 20
+          node-version: '18'
 
       - name: Install dependencies
         run: npm ci
 
-      - name: Show Cypress test file exists
-        run: ls -la cypress/e2e
-
-      - name: Run specific test
-        run: npx cypress run --spec "**/F_project*.cy.js"
+      - name: Run Cypress tests
+        run: npx cypress run --spec "cypress/e2e/F_project/**/*.cy.js"
