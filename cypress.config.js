@@ -1,8 +1,6 @@
  const { defineConfig } = require("cypress");
 module.exports = {
-  env: {
-    MAILOSAUR_API_KEY: "lPZ0QCIfJD2UjkGJoawZnbUq7pqR1KJZ",
-  },
+projectId: "1h6z5j",
   retries: {
     experimentalStrategy: 'detect-flake-and-pass-on-threshold',
     experimentalOptions: {
